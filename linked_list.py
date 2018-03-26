@@ -29,15 +29,13 @@ class LinkedList:
         self.comparisons = 0
         self.assigns = 0
 
-    def show_list(self):
+    def show(self):
         """ Prints every element from the linked list """
 
         current = self.head
         if current is None:
-            self.comparisons +=1
             raise ValueError("List is empty")
         i = 1
-        self.assigns += 2
         while current.get_value() is not None:
             print('{}:'.format(i), current.get_value())
             i += 1
@@ -124,35 +122,39 @@ class LinkedList:
             previous.set_next(current.get_next())
 
 
-np.random.seed(100)
-def fill_by_appending(_list):
+def fill_by_appending(structure):
     """
-    Fills the list with 25 random integers
+    Fills the structure with 25 random integers
     from [0, 300] range
 
     """
 
     for _ in range(25):
-        _list.append(np.random.randint(0, 301))
-    return _list
+        structure.append(np.random.randint(0, 301))
+    return structure
 
-def fill_mixed(_list):
+def fill_mixed(structure):
     """
     Fills the list once with append, then with insert """
-    while _list.len < 25:
-        _list.append(np.random.randint(0, 301))
-        if _list.len == 25:
+    i = 0
+    while i < 25:
+        structure.append(np.random.randint(0, 301))
+        i += 1
+        if i == 25:
             break
         else:
-            _list.insert(np.random.randint(0, 301))
+            structure.insert(np.random.randint(0, 301))
+            i += 1
 
-def fill_random(_list):
+def fill_random(structure):
     """ Fills the list randomly, either at start, or beggining """
-
-    while _list.len < 25:
+    i = 0
+    while i < 25:
         rand = np.random.random_sample(1)
         if rand < 0.5:
-            _list.append(np.random.randint(0, 301))
+            structure.append(np.random.randint(0, 301))
+            i += 1
         else:
-            _list.insert(np.random.randint(0, 301))
-    return _list
+            structure.insert(np.random.randint(0, 301))
+            i += 1
+    return structure
