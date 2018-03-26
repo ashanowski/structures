@@ -83,12 +83,30 @@ class LinkedList:
 
 LST = LinkedList()
 
-print(LST.size())
 
-for _ in range(25):
+LST.insert(5)
+LST.insert(19)
+LST.insert(30)
+LST.insert(49)
+LST.insert(43)
+
+for _ in range(20):
     LST.insert(np.random.randint(0, 301))
 
 
-while LST.head.get_next is not None:
-    print(LST.head.value)
+print(LST.size())
+
+print("Before deletion")
+while LST.head.get_next() is not None:
+    print(LST.head.get_value())
     LST.head = LST.head.get_next()
+
+LST.delete(30)
+
+print("After deletion")
+
+while LST.head.get_next() is not None:
+    print(LST.head.get_value())
+    LST.head = LST.head.get_next()
+
+print(LST.size())
