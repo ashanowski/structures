@@ -1,40 +1,57 @@
-import numpy as np
+#!/usr/bin/env python3.6
+from node import Node
 
-class Node:
-
-    """ Simple node class, each node contains a value and a pointer to the next Node"""
-    def __init__(self, value):
-        self.value = value
-        self.next = None
-
-    # Getters for value and next
-    def get_value(self):
-        """ Return current value """
-        return self.value
-
-    def get_next(self):
-        """ Return next node """
-        return self.next
-
-    # To set a pointer to a next node:
-    def set_next(self, new_next):
-        """ Set _next pointer to the next node """
-        self.next = new_next
 
 class LinkedList:
 
     """ Linked list class, made of nodes """
     def __init__(self, head=None):
+        self.len = 1
+        self.comparisons = 0
+        self.assigns = 5
         self.head = head
+        self.tail = self.head
 
-    def insert(self, value):
+    def show_counters(self):
+        """ Show counters of how many comparisons
+            and assigns were made
+        """
+        print('Comparisons made: ', self.comparisons)
+        print('Assigns made: ', self.assigns)
+        print('Operations in total: ', self.comparisons
+                                     + self.assigns)
+
+    def reset_counters(self):
+        """ Resets counters """
+        self.comparisons = 0
+        self.assigns = 0
+
+    def show_list(self):
+        """ Prints every element from the linked list """
+
+        current = self.head
+        i = 1
+        while current.get_value() is not None:
+            print('{}:'.format(i), current.get_value())
+            i += 1
+            if current.get_next() is None:
+                break
+            else:
+                current = current.get_next()
+
+    def append(self, value):
         """ Takes a value, creates a node with that value
             and attaches it to the list, placing at head
             pointing new node at old head."""
 
-        new_node = Node(value)
+        new_node = Node(value, None)
         new_node.set_next(self.head)
         self.head = new_node
+        self.len += 1
+        self.assigns += 5
+
+    def insert(self, value):
+
 
     def size(self):
         """ Counts nodes as long as they exist, increasing
@@ -48,7 +65,11 @@ class LinkedList:
         return count
 
     def search(self, value):
-        """ Search list for the value and return it """
+        """ Search list for the value
+            and return the node containing it
+
+        """
+
         current = self.head
         found = False
 
@@ -56,7 +77,7 @@ class LinkedList:
             if current.get_value() == value:
                 found = True
             else:
-                current = current.get_next
+                current = current.get_next()
 
         if current is None:
             raise ValueError("Given value not in a list")
@@ -69,7 +90,7 @@ class LinkedList:
         found = False
         previous = None
         while current and found is False:
-            if current.get_value == value:
+            if current.get_value() == value:
                 found = True
             else:
                 previous = current
@@ -79,34 +100,4 @@ class LinkedList:
         if previous is None:
             self.head = current.get_next()
         else:
-            previous.set_next(current.get_next)
-
-LST = LinkedList()
-
-
-LST.insert(5)
-LST.insert(19)
-LST.insert(30)
-LST.insert(49)
-LST.insert(43)
-
-for _ in range(20):
-    LST.insert(np.random.randint(0, 301))
-
-
-print(LST.size())
-
-print("Before deletion")
-while LST.head.get_next() is not None:
-    print(LST.head.get_value())
-    LST.head = LST.head.get_next()
-
-LST.delete(30)
-
-print("After deletion")
-
-while LST.head.get_next() is not None:
-    print(LST.head.get_value())
-    LST.head = LST.head.get_next()
-
-print(LST.size())
+            previous.set_next(current.get_next())
