@@ -81,7 +81,6 @@ class LinkedList:
         else:
             previous.set_next(current.get_next)
 
-
 LST = LinkedList()
 
 print(LST.size())
